@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Flexbox 0 — starting code</title>
+    <style>
+
+#boxitem {
+	background-color : yellow;
+	width : 30px;
+	height : 30px;
+	border : solid;
+	position : absolute;
+}
+
+    </style>
+  </head>
+  <body>
+	<div id="boxitem"></div>
+  </body>
+
+<script>
+const $boxitem = document.getElementById("boxitem");
+let xOffset = 0;
+let yOffset = 0;
+let curPosX = 0;
+let curPosY = 0;
+let isMove = false;
+const timeUnit = 5;
+let curTime = 0;
+
+document.addEventListener("mousemove", function(event){
+	if(isMove){
+		curPosX = event.clientX + xOffset;
+		curPosY = event.clientY + yOffset;
+	}
+});
+
+$boxitem.addEventListener("mousedown", function(event){
+	xOffset = parseInt(window.getComputedStyle($boxitem).left.replace("px", "")) - event.clientX;
+	yOffset = parseInt(window.getComputedStyle($boxitem).top.replace("px", "")) - event.clientY;
+	isMove = true;
+});
+
+document.addEventListener("mouseup", function(event){
+	isMove = false;
+});
+
+setInterval(function(){
+	$boxitem.style.left = `${curPosX}px`;
+	$boxitem.style.top = `${curPosY}px`;
+}, 25);
+
+
+
+</script>
+</html>
